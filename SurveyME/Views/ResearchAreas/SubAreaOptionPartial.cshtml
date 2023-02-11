@@ -1,0 +1,12 @@
+﻿@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jquery-ui")
+
+<option value="">Select The Sub Area</option>
+
+@if (ViewBag.SubAreaOptions != null)
+{
+    foreach (var item in ViewBag.SubAreaOptions)
+    {
+        <option value="@item.Value">@item.Text </option>
+    }
+}

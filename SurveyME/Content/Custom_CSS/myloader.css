@@ -1,0 +1,31 @@
+﻿.loading {
+    background: #f7f7f7;
+    height: fit-content;
+    border-radius: 0.3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+    .loading::before {
+        content: '';
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: 0.3rem;
+        background: linear-gradient(to right, transparent, #d4cdcb, transparent);
+        transform: translateX(-100%);
+        animation: loading 1s infinite;
+    }
+
+@keyframes loading {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.hidden-text {
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+}

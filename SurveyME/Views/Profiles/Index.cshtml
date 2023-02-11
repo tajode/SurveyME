@@ -1,0 +1,60 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<SurveyME.Models.Profile>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card surveyme-input-card mb-4 shadow">
+    <div class="card-header border-0 pb-0">
+        <h5 class="card-title text-center fw-bold text-success">My Profile</h5>
+    </div>
+
+    <div class="card-body">
+
+        @foreach (var item in Model)
+        {
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="fw-bold fs-2 text-success">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</h3>
+                    <h6 class="mt-2"><span class="badge bg-success">@Html.DisplayFor(modelItem => item.Profession)</span></h6>
+                    <h6 class="mt-2"><span class="badge bg-success">@Html.DisplayFor(modelItem => item.NameofEmployer)</span></h6>
+                </div>
+
+                <div class="card-body">
+                    <p class="card-text">@Html.Raw(item.About)</p>
+                    <div>
+                        <h6><span class="badge bg-success">@Html.DisplayFor(modelItem => item.DateofCreation)</span></h6>
+                    </div>
+                    <a href="@Url.Action("Edit", "Profiles", new { id = item.Id })" class="fs-14">Edit your profile</a>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div>
+        @Html.PagedListPager(Model, page =>
+            Url.Action("Index", new { page = page }),
+            new PagedListRenderOptions
+                {
+                    UlElementClasses = new string[] { "pagination pagination-xs pagination-gutter  pagination-warning" },
+                    LiElementClasses = new string[] { "page-item" },
+                    LinkToPreviousPageFormat = "Previous",
+                    LinkToNextPageFormat = "Next",
+                    ClassToApplyToLastListItemInPager = "page-previus",
+                    ClassToApplyToFirstListItemInPager = "page-next",
+                    FunctionToTransformEachPageLink = (li, a) =>
+                {
+                    a.AddCssClass("page-link");
+                    li.InnerHtml = a.ToString();
+                    return li;
+                }
+            })
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

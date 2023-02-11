@@ -1,0 +1,98 @@
+﻿@model SurveyME.Models.Profile
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="card surveyme-input-card mb-4 shadow">
+        <div class="card-header border-0 pb-0">
+            <h5 class="card-title text-center fw-bold text-success">Profile Editor</h5>
+        </div>
+
+        <div class="card-body">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="justify-content-center">
+                <div class="row g-4 pb-3 justify-content-center">
+                    <div class="input-group justify-content-center">
+                        @Html.EditorFor(model => model.Profession, new { htmlAttributes = new { @class = "form-control surveyme-input-box myinput-text", @placeholder = "Select your profession name" } })
+                    </div>
+
+                    <div class="input-group justify-content-center">
+                        @Html.EditorFor(model => model.NameofEmployer, new { htmlAttributes = new { @id = "EmployeeName_Data", @class = "form-control surveyme-input-box myinput-text", @placeholder = "Select your employer name" } })
+                    </div>
+
+                    <div class="input-group justify-content-center">
+                        @Html.EditorFor(model => model.About, new { htmlAttributes = new { @class = "form-control  surveyme-input-box mytext-area ", @placeholder = "Tell us about yourself" } })
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" id="SaveInputData" class="btn btn-success btn-lg surveyme-report-button">Finish up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(function () {
+            $("#Profession").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/Professions/GetProfessions",
+                        dataType: "json",
+                        type: "POST",
+                        data: { term: request.term },
+                        success: function (data) {
+                            console.log(data);
+                            response($.map(data, function (item) {
+                                return { label: item.profession, value: item.profession, id: item.Id };
+                            }))
+                        }
+                    });
+                },
+                minLength: 1,
+                select: function (event, query) {
+                    console.log(query);
+                    $("#Profession").val(query.item.label)
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $(function () {
+            $("#EmployeeName_Data").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/EmployerDetails/GetEmployers",
+                        dataType: "json",
+                        type: "POST",
+                        data: { term: request.term },
+                        success: function (data) {
+                            console.log(data);
+                            response($.map(data, function (item) {
+                                return { label: item.employer, value: item.employer, id: item.Id };
+                            }))
+                        }
+                    });
+                },
+                minLength: 1,
+                select: function (event, query) {
+                    console.log(query);
+                    $("#EmployeeName_Data").val(query.item.label)
+                }
+            });
+        });
+    </script>
+}

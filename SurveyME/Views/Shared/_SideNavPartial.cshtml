@@ -1,0 +1,156 @@
+﻿@using SurveyME.Models;
+@using Microsoft.AspNet.Identity;
+
+@{
+    string displayedFullName = "Join us today!";
+    string displayedAbout = "At Access Impact, our goal is to create a platform that supports the process of monitoring and evaluating the output, outcome and impact of government projects.";
+    string displayedProfession = "Access a project.";
+}
+
+<script src="~/Scripts/myloader.js"></script>
+
+@if (User.Identity.IsAuthenticated)
+{
+    ApplicationDbContext db = new ApplicationDbContext();
+    string currentUserName = User.Identity.GetUserName();
+
+    var user = db.Users.SingleOrDefault(u => u.UserName == currentUserName);
+    var about = db.Profile_Dbset.SingleOrDefault(s => s.UserName == currentUserName);
+    var profession = db.Profile_Dbset.SingleOrDefault(s => s.UserName == currentUserName);
+
+    string myabout = about.About;
+    string capturedFirstName = user.FirstName;
+    string capturedLastName = user.LastName;
+    string capturedProfession = profession.Profession;
+
+    displayedFullName = capturedFirstName + " " + capturedLastName;
+    displayedAbout = myabout;
+    displayedProfession = capturedProfession;
+}
+
+@if (!User.Identity.IsAuthenticated)
+{
+    displayedFullName = "Join us today";
+    displayedProfession = "Access a project.";
+}
+
+<div class="card shadow sidenav-card p-2" style="width: 18rem;">
+    <div class="card-body">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <h5 class="card-title fs-2 fw-bold"><a class="sidenav-link text-success" href="@Url.Action("Index", "Profiles")">@(displayedFullName)</a></h5>
+        }
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <h5 class="card-title fs-2 fw-bold text-success">@(displayedFullName)</h5>
+        }
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <h6><span class="badge bg-success mt-2 para-length">@(displayedProfession)</span></h6>
+        }
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <h6><span class="badge bg-success mt-2">@(displayedProfession)</span></h6>
+        }
+
+        <p class="card-text myabout fs-6">@(displayedAbout)</p>
+    </div>
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item first-link">
+                <span class="fa fa-2x fa-user text-success"></span>
+                <a class="sidenav-link text-success" href="@Url.Action("MySurveys", "SurveyForms")">&nbsp;&nbsp; My Surveys</a>
+                <span id="surveycount" class="badge bg-success rounded-pill areas-stat"></span>
+            </li>
+            <li class="list-group-item second-link">
+                <span class="fa fa-2x fa-fire text-success"></span>
+                <a class="sidenav-link text-success" href="@Url.Action("Index", "SurveyForms")">&nbsp;&nbsp; Explore Surveys</a>
+                <span id="mysurveycount" class="badge bg-success rounded-pill areas-stat"></span>
+            </li>
+            <li class="list-group-item third-link">
+                <span class="fa fa-2x fa-flask text-success"></span>
+                <a class="sidenav-link text-success" href="@Url.Action("Create", "SurveyForms")">&nbsp;&nbsp; Create a Survey</a>
+            </li>
+            <li class="list-group-item fourth-link">
+                <span class="fa fa-2x fa-yin-yang text-success"></span>
+                <a class="sidenav-link text-success" href="@Url.Action("Create", "SurveyForms")">&nbsp;&nbsp; Participate in a Survey</a>
+            </li>
+        </ul>
+    }
+
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item second-link">
+                <span class="fa fa-2x fa-fire text-success"></span>
+                <a class="sidenav-link text-success" href="@Url.Action("Register", "Account")">&nbsp;&nbsp; Explore Surveys</a>
+                <span id="exploresurveycount" class="badge bg-success rounded-pill areas-stat"></span>
+            </li>
+            <li class="list-group-item third-link">
+                <span class="fa fa-2x fa-flask text-success"></span>
+                <a class="sidenav-link text-success" href="@Url.Action("Register", "Account")">&nbsp;&nbsp; Create a Survey</a>
+            </li>
+            <li class="list-group-item fourth-link">
+                <span class="fa fa-2x fa-yin-yang text-success"></span>
+                <a class="sidenav-link text-success" href="@Url.Action("Register", "Account")">&nbsp;&nbsp; Participate in a Survey</a>
+            </li>
+        </ul>
+    }
+
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <div class="card-body">
+            <button class="btn btn-success myBorderradius" type="button" onclick="location.href='@Url.Action("Register", "Account")'">Join a survey</button>
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+    setInterval(function () {
+        $(function () {
+            $.ajax({
+                url: "/SurveyForms/GetSurveyCount",
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: {},
+                success: function (response) {
+                    /*console.log("Success");*/
+
+                    var surveycount = response.RecordsCount;
+                    $('#surveycount').text(surveycount);
+                    $('#exploresurveycount').text(surveycount);
+                },
+            });
+
+        });
+    }, 1000);
+</script>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <script type="text/javascript">
+        setInterval(function () {
+            $(function () {
+                $.ajax({
+                    url: "/SurveyForms/GetMySurveyCount",
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: {},
+                    success: function (response) {
+                        /*console.log("Success");*/
+
+                        var mysurveycount = response.RecordsCount;
+                        $('#mysurveycount').text(mysurveycount);
+
+                    },
+                });
+
+            });
+        }, 1000);
+    </script>
+}

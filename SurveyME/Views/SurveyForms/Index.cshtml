@@ -1,0 +1,167 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<SurveyME.Models.SurveyForms>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col">
+        <div class="card surveyme-input-card mb-4 shadow">
+            <div class="card-header border-0 pb-0">
+                <h5 class="card-title text-center fw-bold text-success">Survey Forms</h5>
+            </div>
+
+            <div class="card-body">
+                @{ int rowNo = 0; }
+                @foreach (var item in Model)
+                {
+                    <div class="card">
+                        <div class="card-header">
+                            @(rowNo += 1). Survey Title - @Html.DisplayFor(modelItem => item.SurveyTitle)
+                            <h6><span class="badge bg-success mt-2">@Html.DisplayFor(modelItem => item.MinistryName)</span></h6>
+                            <h6><span class="badge bg-success">@Html.DisplayFor(modelItem => item.ResearchArea)</span></h6>
+                        </div>
+
+                        <div class="card-body">
+                            <p class="card-text">@Html.Raw(item.SurveyDescription)</p>
+                            <div>
+                                <h6>Author <span class="badge bg-success">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</span></h6>
+                                <h6><span class="badge bg-success">@Html.DisplayFor(modelItem => item.DateofCreation)</span></h6>
+                            </div>
+
+                            <div class="float-end">
+                                <p id="cap-formid" style="display:none;">@item.Id</p>
+                                <p id="live-bookmarkcount" class="float-start me-2 text-success fs-14"></p>
+                                <span id="my-bookmarks" style="cursor: pointer; color: gray;" class="fa fa-2x fa-bookmark"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <button class="btn btn-success myBorderradius surveyme-report-button d-grid justify-content-center transform-87 me-12" type="button" @*onclick="location.href='@Url.Action("Index", "Sections", new { surveyform_id = item.Id })'"*@>Participate</button>
+                    </div>
+                }
+            </div>
+
+            <div>
+                @Html.PagedListPager(Model, page =>
+                    Url.Action("Index", new { page = page }),
+                    new PagedListRenderOptions
+                        {
+                            UlElementClasses = new string[] { "pagination pagination-xs pagination-gutter  pagination-warning" },
+                            LiElementClasses = new string[] { "page-item" },
+                            LinkToPreviousPageFormat = "Previous",
+                            LinkToNextPageFormat = "Next",
+                            ClassToApplyToLastListItemInPager = "page-previus",
+                            ClassToApplyToFirstListItemInPager = "page-next",
+                            FunctionToTransformEachPageLink = (li, a) =>
+                        {
+                            a.AddCssClass("page-link");
+                            li.InnerHtml = a.ToString();
+                            return li;
+                        }
+                    })
+            </div>
+        </div>
+    </div>
+
+    <div class="col-3">
+        <div class="card shadow">
+            <div class="card-header">
+                <h6 class="fw-bold text-success">Our Ministries</h6>
+            </div>
+
+            <div class="card-body">
+                <ol class="list-group list-group-numbered">
+                    @foreach (var item in ViewBag.MinistryList)
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fs-14">
+                                    @{
+                                        string theministry = item.Ministry;
+                                    }
+                                    @Html.ActionLink(theministry, "MainArea", "SurveyForms", new { mainarea = item.Ministry }, null)
+                                </div>
+                            </div>
+                            <span class="badge bg-success rounded-pill areas-stat">@item.SurveyCount</span>
+                        </li>
+                    }
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $(function () {
+            $("#my-bookmarks").click(function () {
+                var firstcapformid = $("#cap-formid").text().toString();
+
+                $.ajax({
+                    url: "/BookmarkedSurveyForms/GetBookmarks",
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: '{formid: "' + firstcapformid + '" }',
+                    success: function (response) {
+                        /*console.log("Success");*/
+                    },
+                });
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        setInterval(function () {
+            $(function () {
+                var secondcapformid = $("#cap-formid").text().toString();
+
+                $.ajax({
+                    url: "/BookmarkedSurveyForms/GetBookmarksCount",
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: '{countformid: "' + secondcapformid + '" }',
+                    success: function (response) {
+                        var bookmarkcount = response.BookmarkCount;
+                        $('#live-bookmarkcount').text(bookmarkcount + " Interests");
+                    },
+                });
+            });
+        }, 1000);
+    </script>
+
+    <script type="text/javascript">
+        setInterval(function () {
+            $(function () {
+                var thirdcapformid = $("#cap-formid").text().toString();
+
+                $.ajax({
+                    url: "/BookmarkedSurveyForms/GetBookmarksStatus",
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: '{statusformid: "' + thirdcapformid + '" }',
+                    success: function (response) {
+                        var bookmarkstatus = "Yes";
+                        var livebookmarkstatus = response.BookmarkStatus;
+                        if (livebookmarkstatus == bookmarkstatus) {
+                            $("#my-bookmarks").css("color", "#198754");
+                        }
+                        else {
+                            $("#my-bookmarks").css("color", "gray");
+                        }
+                    },
+                });
+            });
+        }, 1000);
+    </script>
+}
+

@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - SurveyME</title>
+
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/jqueryui")
+    @Styles.Render("~/Content/fontawesome")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jquery-ui")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/fontawesome")
+    @Scripts.Render("~/bundles/myloader")
+</head>
+<body>
+    @{ Html.RenderPartial("_NavbarPartial"); }
+
+    <div class="container body-content body-padding">
+        <div class="row">
+            <div class="col-auto">
+                @{ Html.RenderPartial("_SideNavPartial"); }
+            </div>
+            <div class="col">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

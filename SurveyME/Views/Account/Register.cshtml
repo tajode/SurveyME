@@ -1,0 +1,47 @@
+﻿@model SurveyME.Models.RegisterViewModel
+
+@{
+    ViewBag.Title = "Sign up";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card signup-card shadow bg-body rounded">
+    <div class="card-body signup-card-body">
+        <h5 class="signin-card-title">@ViewBag.Title</h5>
+        <h6 class="signin-card-subtitle">Help us monitor and evaluate projects.</h6>
+
+        <div>
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary("", new { @class = "text-danger signup-validation-text" })
+                <div class="form-group">
+                    <div class="signup-textbox-group">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control signup-textboxes", placeholder = "Email Address" })
+
+                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control signup-textboxes", placeholder = "First Name" })
+
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control signup-textboxes", placeholder = "Last Name" })
+
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control signup-textboxes", placeholder = "Password" })
+
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control signup-textboxes", placeholder = "Repeat Password" })
+                    </div>
+
+                    <div>
+                        <button type="submit" class="btn btn-success btn-lg signup-button">Sign up</button>
+                    </div>
+
+                    <div class="sign-in-div">
+                        <p>Already on SurveyME? &nbsp</p>@Html.ActionLink("Sign in", "Login", null, new { @class = "sign-in-link" })
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

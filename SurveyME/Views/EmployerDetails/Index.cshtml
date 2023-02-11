@@ -1,0 +1,51 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<SurveyME.Models.EmployerDetails>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card surveyme-input-card mb-4 shadow">
+    <div class="card-header border-0 pb-0">
+        <h5 class="card-title text-center fw-bold text-success">Employer Details</h5>
+    </div>
+
+    <div class="card-body">
+
+        @{ int rowNo = 0; }
+        @foreach (var item in Model)
+        {
+            <div class="card mb-2">
+                <div class="card-header">
+                    @(rowNo += 1). @Html.DisplayFor(modelItem => item.NameofEmployer) <a href="@Url.Action("Edit", "EmployerDetails", new { id = item.Id })" class="fs-14">Edit</a>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div>
+        @Html.PagedListPager(Model, page =>
+            Url.Action("Index", new { page = page }),
+            new PagedListRenderOptions
+                {
+                    UlElementClasses = new string[] { "pagination pagination-xs pagination-gutter  pagination-warning" },
+                    LiElementClasses = new string[] { "page-item" },
+                    LinkToPreviousPageFormat = "Previous",
+                    LinkToNextPageFormat = "Next",
+                    ClassToApplyToLastListItemInPager = "page-previus",
+                    ClassToApplyToFirstListItemInPager = "page-next",
+                    FunctionToTransformEachPageLink = (li, a) =>
+                {
+                    a.AddCssClass("page-link");
+                    li.InnerHtml = a.ToString();
+                    return li;
+                }
+            })
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

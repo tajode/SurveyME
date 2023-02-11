@@ -1,0 +1,13 @@
+﻿@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jquery-ui")
+
+<option value="">Select The Actual Area</option>
+
+@if (ViewBag.ActualAreaOptions != null)
+{
+    foreach (var item in ViewBag.ActualAreaOptions)
+    {
+        <option value="@item.Value">@item.Text </option>
+    }
+}
+

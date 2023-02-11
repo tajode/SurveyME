@@ -1,0 +1,181 @@
+﻿@model SurveyME.Models.SurveyForms
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="card surveyme-input-card mb-4 shadow">
+        <div class="card-header border-0 pb-0">
+            <h5 class="card-title text-center fw-bold text-success">Delete Survey Form</h5>
+        </div>
+
+        <div class="card-body">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="justify-content-center">
+                <div class="row g-4 pb-3">
+                    <div>
+                        @Html.EditorFor(model => model.MinistryName, new { htmlAttributes = new { @id = "MinistryName_Data", @class = "form-control surveyme-input-box myinput-text", @placeholder = "What is the name of your ministry?" } })
+                    </div>
+                </div>
+
+                <div class="row g-4 pb-3">
+                    <div>
+                        @Html.EditorFor(model => model.ProjectName, new { htmlAttributes = new { @id = "ProjectName_Data", @class = "form-control surveyme-input-box myinput-text", @placeholder = "What is the name of your project?" } })
+                    </div>
+                </div>
+
+                <div class="row g-4 pb-3">
+                    <div>
+                        @Html.EditorFor(model => model.SurveyTitle, new { htmlAttributes = new { @id = "SurveyTitle_Data", @class = "form-control surveyme-input-box myinput-text", @placeholder = "What is the title of your survey?" } })
+                    </div>
+                </div>
+
+                <div class="row g-4 pb-3">
+                    <div>
+                        @Html.EditorFor(model => model.ResearchArea, new { htmlAttributes = new { @id = "ResearchArea_Data", @class = "form-control surveyme-input-box myinput-text", @placeholder = "What is the research area of your survey?" } })
+                    </div>
+                </div>
+
+                <div class="row g-4 pb-3">
+                    <div>
+                        @Html.EditorFor(model => model.SurveyDescription, new { htmlAttributes = new { @id = "SurveyDescription_Data", @class = "form-control  surveyme-input-box mytext-area", @placeholder = "What is the description of your survey?" } })
+                    </div>
+                </div>
+
+                <div class="form-checkboxes">
+                    <div class="row g-4 pb-3">
+                        <div class="input-group justify-content-center">
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label" for="inlineRadio1">What are the target genders?</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                @Html.CheckBoxFor(model => model.Male_gender, new { @class = "form-check-input" })
+                                <label class="form-check-label" for="inlineCheckbox2">Male</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                @Html.CheckBoxFor(model => model.Female_gender, new { @class = "form-check-input" })
+                                <label class="form-check-label" for="inlineCheckbox2">Female</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                @Html.CheckBoxFor(model => model.Non_binary_gender, new { @class = "form-check-input" })
+                                <label class="form-check-label" for="inlineCheckbox2">Non binary</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-checkboxes">
+                    <div class="row g-4 pb-3">
+                        <div class="input-group justify-content-center">
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label" for="inlineRadio1">What is the target age group?</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                @Html.CheckBoxFor(model => model.Age_group_A, new { @class = "form-check-input" })
+                                <label class="form-check-label" for="inlineCheckbox2">18 - 24</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                @Html.CheckBoxFor(model => model.Age_group_B, new { @class = "form-check-input" })
+                                <label class="form-check-label" for="inlineCheckbox2">25 - 34</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                @Html.CheckBoxFor(model => model.Age_group_C, new { @class = "form-check-input" })
+                                <label class="form-check-label" for="inlineCheckbox2">35 - 44</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                @Html.CheckBoxFor(model => model.Age_group_D, new { @class = "form-check-input" })
+                                <label class="form-check-label" for="inlineCheckbox2">45 - 59</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                @Html.CheckBoxFor(model => model.Age_group_E, new { @class = "form-check-input" })
+                                <label class="form-check-label" for="inlineCheckbox2">60 and above</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-checkboxes">
+                    <div class="row g-4 pb-3">
+                        <div class="input-group justify-content-center">
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label" for="inlineRadio1">Is your survey targetting persons with disability specifically?</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                @Html.CheckBoxFor(model => model.Target_PWDs, new { @class = "form-check-input" })
+                                <label class="form-check-label" for="inlineCheckbox2">Yes</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-checkboxes">
+                    <div class="row g-4 pb-3">
+                        <div class="input-group justify-content-center">
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label" for="inlineRadio1">What are the target maritial status?</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                @Html.CheckBoxFor(model => model.Status_Single, new { @class = "form-check-input" })
+                                <label class="form-check-label" for="inlineCheckbox2">Single</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                @Html.CheckBoxFor(model => model.Status_Married, new { @class = "form-check-input" })
+                                <label class="form-check-label" for="inlineCheckbox2">Married</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-checkboxes">
+                    <div class="row g-4 pb-3">
+                        <div class="input-group justify-content-center">
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label" for="inlineRadio1">What are the target academic levels?</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                @Html.CheckBoxFor(model => model.Academic_Level_Primary, new { @class = "form-check-input" })
+                                <label class="form-check-label" for="inlineCheckbox2">Primary</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                @Html.CheckBoxFor(model => model.Academic_Level_Secondary, new { @class = "form-check-input" })
+                                <label class="form-check-label" for="inlineCheckbox2">Secondary</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                @Html.CheckBoxFor(model => model.Academic_Level_Diploma, new { @class = "form-check-input" })
+                                <label class="form-check-label" for="inlineCheckbox2">Diploma</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                @Html.CheckBoxFor(model => model.Academic_Level_Degree, new { @class = "form-check-input" })
+                                <label class="form-check-label" for="inlineCheckbox2">Degree</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                @Html.CheckBoxFor(model => model.Academic_Level_Masters, new { @class = "form-check-input" })
+                                <label class="form-check-label" for="inlineCheckbox2">Masters</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                @Html.CheckBoxFor(model => model.Academic_Level_PhD, new { @class = "form-check-input" })
+                                <label class="form-check-label" for="inlineCheckbox2">PhD</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" id="SaveInputData" class="btn btn-success btn-lg surveyme-report-button">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

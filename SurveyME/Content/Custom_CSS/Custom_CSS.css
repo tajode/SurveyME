@@ -1,0 +1,416 @@
+﻿/* Site colors*/
+.text-flag-red {
+    color: #BB1600;
+}
+
+.text-flag-green {
+    color: #006600;
+}
+
+.text-flag-black {
+    color: #141414;
+}
+
+.bg-flag-red {
+    background-color: #BB1600;
+}
+
+.bg-flag-green {
+    background-color: #006600;
+}
+
+.bg-flag-black {
+    background-color: #141414;
+}
+
+/*Body CSS*/
+body {
+    padding-top: 0px !important;
+    padding-bottom: 0px;
+    background-color: #F3F2EF;
+}
+
+.body-padding {
+    padding-top: 25px;
+}
+
+.fs-14 {
+    font-size: 14px;
+}
+
+.w-94 {
+    width: 94% !important;
+    margin: auto;
+}
+
+.me-12 {
+    margin-right: -12px;
+}
+
+.transform-87 {
+    transform: scale(0.87);
+    transform-origin: left top;
+    margin-bottom: -8px !important;
+}
+
+/*Pagination*/
+.pagination-container .pagination {
+    transform: scale(0.9);
+}
+
+.page-item.active .page-link {
+    background-color: #198754;
+    border-color: #198754;
+}
+
+    .page-item.active .page-link:hover {
+        background-color: #157347;
+        border-color: #146c43;
+    }
+
+.page-link {
+    color: #198754;
+}
+
+.page-item.active:hover .page-link {
+    color: white !important;
+}
+
+    .page-item:hover .page-link {
+        color: #157347;
+    }
+
+/*Navbar CSS*/
+.navbar-custom {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.navbar-padding {
+    padding: 4px 125px 4px 125px;
+}
+
+@media screen and (min-width: 992px) {
+    .navbar-padding {
+        padding: 4px 125px 4px 125px;
+    }
+}
+
+.navbar-toggler {
+    padding: 0.25rem 0.75rem;
+    font-size: 1.25rem;
+    line-height: 1;
+    background-color: #0D6EFD;
+    border: none;
+    border-radius: 0.25rem;
+    transition: box-shadow 0.15s ease-in-out;
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+    background-repeat: round;
+}
+
+    .navbar-toggler:focus {
+        box-shadow: 0 0 0 0.25rem rgba(49, 132, 253, 0.5);
+    }
+
+.navbar-authorization-buttons {
+    border-radius: 28px !important;
+}
+
+.register-link {
+    margin-right: 12px;
+}
+
+/* Account/Login Page and Register Page */
+.signin-card-title {
+    font-size: 32px;
+    font-weight: 600;
+    color: rgba(0,0,0,0.9);
+}
+
+.signin-card-subtitle {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(0,0,0,0.9);
+}
+
+.signin-textboxes, .signup-textboxes {
+    margin-bottom: 20px;
+}
+
+.signin-textbox-group, .signup-textbox-group {
+    margin-top: 30px;
+}
+
+.signin-card, .signup-card {
+    width: max-content;
+    margin: auto;
+    border: none;
+}
+
+.signin-card-body, .signup-card-body {
+    margin: auto;
+}
+
+.signin-button, .signup-button {
+    font-size: 16px;
+    border-radius: 28px;
+    margin: auto;
+    width: 250px;
+}
+
+.forgot-password-link {
+    text-decoration: none;
+}
+
+.forgot-password-div {
+    font-size: 16px;
+    position: relative;
+    top: -15px;
+}
+
+.or-separator {
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    padding: 0 4px;
+    margin: 6px 0px 6px 0px;
+}
+
+    .or-separator .or-text {
+        font-size: 14px;
+        line-height: 1.42857;
+        font-weight: 400;
+        color: rgba(0,0,0,0.6);
+        margin: 0 12px;
+    }
+
+    .or-separator::before {
+        content: "";
+        width: 50%;
+        height: 1px;
+        background-color: rgba(0,0,0,0.15);
+    }
+
+    .or-separator::after {
+        content: "";
+        width: 50%;
+        height: 1px;
+        background-color: rgba(0,0,0,0.15);
+    }
+
+.join-now-link, .sign-in-link {
+    text-decoration: none;
+}
+
+.join-now-div, .sign-in-div {
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+}
+
+.signin-validation-text {
+    position: relative;
+    top: -18px;
+    font-size: 14px;
+    left: 5px;
+}
+
+.signup-validation-text {
+    font-size: 14px;
+    max-width: 250px;
+}
+
+    .signup-validation-text ul {
+        list-style-type: lower-greek;
+        max-width: 250px;
+    }
+
+/*SurveyME Inputs*/
+.surveyme-input-card {
+    max-width: 800px;
+    margin: auto;
+    border: none;
+}
+
+.surveyme-input-box {
+    max-width: 275px;
+}
+
+.input-text-name {
+    min-width: 145px;
+}
+
+.surveyme-custom-text {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+.surveymeinput-card {
+    max-width: 175px;
+    text-align: center;
+}
+
+.surveymeinput-row {
+    padding-left: 15px;
+    padding-right: 15px;
+    justify-content: center;
+}
+
+.surveymeinput-card {
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+.surveyme-report-button {
+    font-size: 16px;
+    border-radius: 28px;
+    margin: auto;
+    width: max-content;
+}
+
+.input-group span {
+    min-width: 200px;
+    justify-content: right;
+}
+
+/*Pagination*/
+.pagination {
+    padding-left: 2rem !important;
+}
+
+/*Create Survey Form*/
+.mytext-area {
+    margin: auto;
+    max-width: 675px;
+    height: 200px;
+}
+
+.myinput-text {
+    margin: auto;
+    max-width: 675px;
+}
+
+.professionTagsgroup li span {
+    min-width: max-content;
+}
+
+.select2-container {
+    width: 675px !important;
+}
+
+.select2-selection.select2-selection--multiple {
+    height: 200px;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    border: 1px solid #ced4da;
+    outline: 0;
+}
+
+.select2-container--default .select2-selection--multiple {
+    border: 1px solid #ced4da !important;
+}
+
+.select2-selection__choice {
+    font-size: 13px;
+    border-radius: 28px !important;
+    background-color: #0D6EFD !important;
+    border-color: #0D6EFD !important;
+    color: white;
+}
+
+.select2-selection__choice__remove {
+    color: white !important;
+}
+
+.form-checkboxes {
+    border: 1px solid #ced4da;
+    padding-top: 15px;
+    max-width: 675px;
+    margin: auto;
+    margin-bottom: 16px;
+    border-radius: 5px;
+}
+
+/* SideNav */
+.myabout {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    line-clamp: 6;
+    -webkit-box-orient: vertical;
+}
+
+.sidenav-link {
+    text-decoration: none;
+    position: relative;
+    top: -3px;
+}
+
+.sidenav-card .list-group-flush > .list-group-item {
+    border: none;
+}
+
+.sidenav-card .list-group-flush {
+    border: none !important;
+}
+
+.first-link:hover .fa-user {
+    color: green !important;
+}
+
+.second-link:hover .fa-fire {
+    color: green !important;
+}
+
+.third-link:hover .fa-flask {
+    color: green !important;
+}
+
+.fourth-link:hover .fa-yin-yang {
+    color: green !important;
+}
+
+.para-length {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 240px;
+}
+
+.sidenav-card .list-group.list-group-flush {
+    transform: scale(0.9);
+}
+
+#mysurveycount {
+    top: -3px;
+    left: 5px;
+}
+
+#surveycount {
+    top: -3px;
+    left: 5px;
+}
+
+#exploresurveycount {
+    top: -3px;
+    left: 5px;
+}
+
+/* Home Page */
+.myBorderradius {
+    border-radius: 28px !important;
+}
+
+/* Research areas card */
+.areas-stat {
+    position: relative;
+    top: 5px;
+}
+
+/* Questions card */
+.link-ps-end {
+    position: relative;
+    top: 2px;
+}

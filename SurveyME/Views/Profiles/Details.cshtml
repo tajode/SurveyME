@@ -1,0 +1,42 @@
+﻿@model SurveyME.Models.Profile
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="card surveyme-input-card mb-4 shadow">
+        <div class="card-header border-0 pb-0">
+            <h5 class="card-title text-center fw-bold text-success">Profile Details Viewer</h5>
+        </div>
+
+        <div class="card-body">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="justify-content-center">
+                <div class="row g-4 pb-3 justify-content-center">
+                    <div class="input-group justify-content-center">
+                        @Html.EditorFor(model => model.Profession, new { htmlAttributes = new { @class = "form-control surveyme-input-box myinput-text", @placeholder = "Select your profession name" } })
+                    </div>
+
+                    <div class="input-group justify-content-center">
+                        @Html.EditorFor(model => model.NameofEmployer, new { htmlAttributes = new { @class = "form-control surveyme-input-box myinput-text", @placeholder = "Select your employer name" } })
+                    </div>
+
+                    <div class="input-group justify-content-center">
+                        @Html.EditorFor(model => model.About, new { htmlAttributes = new { @class = "form-control  surveyme-input-box mytext-area ", @placeholder = "Tell us about yourself" } })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

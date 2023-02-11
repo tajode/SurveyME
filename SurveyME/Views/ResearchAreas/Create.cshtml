@@ -1,0 +1,66 @@
+﻿@model SurveyME.ModelViews.UniversalViewModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="card surveyme-input-card mb-4 shadow">
+        <div class="card-header border-0 pb-0">
+            <h5 class="card-title text-center fw-bold text-success">Research Area Creator</h5>
+        </div>
+
+        <div class="card-body">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="justify-content-center">
+                <div class="row g-4 pb-3 justify-content-center">
+                    <div class="input-group justify-content-center">
+                        @Html.DropDownListFor(model => model.ResearchAreas.MainArea, ViewBag.mainareasList as SelectList, "Select main area", new { @id = "MainArea_Data", @class = "form-control surveyme-input-box myinput-text", @placeholder = "Enter the name of the research area" })
+                    </div>
+
+                    <div class="input-group justify-content-center">
+                        @Html.DropDownListFor(model => model.ResearchAreas.SubArea, new SelectList(""), "Select sub area", new { @id = "SubArea_Data", @class = "form-control surveyme-input-box myinput-text", @placeholder = "Enter the name of the survey sub area" })
+                    </div>
+
+                    <div class="input-group justify-content-center">
+                        @Html.EditorFor(model => model.ResearchAreas.Actual_ResearchArea, new { htmlAttributes = new { @id = "ActualResearchArea_Data", @class = "form-control surveyme-input-box myinput-text", @placeholder = "Enter the name of the actual research area" } })
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" id="SaveInputData" class="btn btn-success btn-lg surveyme-report-button">Finish up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+
+            $("#MainArea_Data").change(function () {
+                var mainarea = $(this).val();
+
+                debugger
+                $.ajax({
+                    type: "POST",
+                    url: "/ResearchAreas/GetSubAreasList?mainareaName=" + mainarea,
+                    contentType: "html",
+                    success: function (response) {
+                        debugger
+                        $("#SubArea_Data").empty();
+                        $("#SubArea_Data").append(response);
+                    }
+                })
+            })
+        })
+    </script>
+}
